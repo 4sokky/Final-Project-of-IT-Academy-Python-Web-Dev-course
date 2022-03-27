@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=50)),
                 ('slug', models.SlugField()),
                 ('body', models.TextField()),
-                ('image', models.ImageField(blank=True, upload_to=main.models.articles_directory_path)),
+                ('image', models.ImageField(blank=True, upload_to='articles/imgs/')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('publish_at', models.DateTimeField(default=django.utils.timezone.now)),

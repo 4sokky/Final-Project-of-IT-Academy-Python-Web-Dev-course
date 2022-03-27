@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
-def articles_directory_path(instance, filename):
-    return 'article_{s}-{f}'.format(s=instance.articles.title, f=filename)
+# def articles_directory_path(instance, filename):      # TODO: Try to make it work
+#     return 'article_{s}-{f}'.format(s=instance.Articles.title, f=filename)
 
 
 # Create your models here.
@@ -13,7 +13,7 @@ class Articles(models.Model):
     slug = models.SlugField(max_length=50)
 
     body = models.TextField()
-    image = models.ImageField(upload_to=articles_directory_path, blank=True)    # TODO: Path should contain a title
+    image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: Path should contain a title
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
