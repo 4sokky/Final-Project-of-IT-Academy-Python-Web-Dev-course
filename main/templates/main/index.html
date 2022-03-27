@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} News {% endblock %}
+
+{% block body %}
+    <h1>News</h1>
+    {% for article in articles %}
+        <h2>{{ article.title }}</h2>
+        <p>
+            {{ article.body|truncatewords:15 }}<br>
+            <img src="{{ request.articles.image.url }}" alt="Can't upload image">
+        </p>
+    {% endfor %}
+{% endblock %}
