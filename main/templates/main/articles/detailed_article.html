@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ article.title }} {% endblock %}
+
+{% block body %}
+    <a href="{% url "main:index" %}">Back to all articles</a>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.article_subject }}</p>
+    <p>{{ article.body }}</p>
+    <p>Published by {{ article.created_by }} at {{ article.created_at }}</p>
+    <p>Last update at {{ article.updated_at }}</p>
+    <!-- TODO: Display other user's articles at the bottom of current article -->
+    <!-- TODO: Display other articles with the same subject at the right side -->
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
 
 
 # def articles_directory_path(instance, filename):      # TODO: Try to make it work
@@ -10,10 +11,11 @@ from django.utils import timezone
 # Create your models here.
 class Articles(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50)
+    slug = models.SlugField(max_length=50, unique_for_date='publish_at')
 
     body = models.TextField()
-    image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: Path should contain a title
+    image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: May be path should contain a slug
+    # TODO: Image must be compressed by Pillow for example
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -32,3 +34,10 @@ class Articles(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('main:detailed_article',
+                       args=[self.publish_at.year,
+                             self.publish_at.month,
+                             self.publish_at.day,
+                             self.slug])

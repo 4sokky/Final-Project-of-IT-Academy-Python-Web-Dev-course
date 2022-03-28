@@ -7,6 +7,7 @@ from . import views
 app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
+    path('<int:yy>_<int:mm>_<int:dd>/<slug:slug>', views.detailed_article, name="detailed_article"),
 ]
 
 if settings.DEBUG:
