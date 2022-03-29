@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block body %}
+    <a href="{% url "main:admin_panel" %}">Back to admin panel</a><br>
     <h2>Fill the form to create a new article</h2>
-    <form action="." method="post">
+    <form action="../articles" method="post">
         {{ form.as_p }}
         {% csrf_token %}
         <input type="submit" value="Create Article">

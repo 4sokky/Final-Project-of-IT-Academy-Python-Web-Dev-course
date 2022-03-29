@@ -3,7 +3,7 @@
 {% block title %} News {% endblock %}
 
 {% block body %}
-    <a href="{% url "main:create_form" %}"> Create new article </a>
+    <a href="{% url "main:admin_panel" %}"> Admin Panel </a> <!-- TODO: Check access rights -->
     <h1>News</h1>
     {% for article in articles %}
         <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
@@ -14,4 +14,5 @@
             {% endif %}
         </p>
     {% endfor %}
+    <!-- TODO: Make contact page with email possibility -->
 {% endblock %}

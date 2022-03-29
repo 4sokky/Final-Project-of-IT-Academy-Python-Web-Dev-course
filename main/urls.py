@@ -8,7 +8,8 @@ app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:yy>_<int:mm>_<int:dd>/<slug:slug>', views.detailed_article, name="detailed_article"),
-    path('create_article/', views.create_article, name='create_form'),
+    path('admin_panel/', views.admin_panel, name='admin_panel'),
+    path('admin_panel/create_article/', views.create_article, name='create_form'),
 ]
 
 if settings.DEBUG:

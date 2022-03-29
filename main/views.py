@@ -20,6 +20,11 @@ def detailed_article(request, yy, mm, dd, slug):
     return render(request, 'main/articles/detailed_article.html', {'article': article})
 
 
+def admin_panel(request):
+    articles = models.Articles.objects.all()
+    return render(request, 'main/admin/admin_panel.html', {'articles': articles})
+
+
 def create_article(request):
     if request.method == "POST":
         article_form = forms.ArticleForm(request.POST)
@@ -31,4 +36,4 @@ def create_article(request):
             return render(request, "main/articles/detailed_article.html", {"article": new_article})
     else:
         article_form = forms.ArticleForm()
-    return render(request, "main/articles/create_article.html", {"form": article_form})
+    return render(request, "main/admin/create_article.html", {"form": article_form})

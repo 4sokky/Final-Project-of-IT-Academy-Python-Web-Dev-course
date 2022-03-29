@@ -7,3 +7,4 @@ class ArticleForm(forms.ModelForm):
         model = models.Articles
         fields = ('title', 'body', 'article_subject', 'image', 'created_by')     # TODO: Don't need to choose user
         # TODO: Fix img upload with form
+        # TODO: Limit characters for fields in html
