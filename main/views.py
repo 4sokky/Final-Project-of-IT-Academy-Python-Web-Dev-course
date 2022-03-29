@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from . import models
 from . import forms
