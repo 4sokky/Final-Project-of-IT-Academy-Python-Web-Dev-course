@@ -8,14 +8,13 @@ from django.urls import reverse
 #     return 'article_{s}-{f}'.format(s=instance.Articles.title, f=filename)
 
 
-# Create your models here.
 class Articles(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique_for_date='publish_at')
 
     body = models.TextField()
-    image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: May be path should contain a slug
-    # TODO: Image must be compressed by Pillow for example
+    image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: May be path should contain a slug mb
+    # TODO: Image must be compressed by Pillow for example + unique name for imgs
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

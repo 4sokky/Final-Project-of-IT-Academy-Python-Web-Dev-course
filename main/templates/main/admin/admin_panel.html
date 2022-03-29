@@ -3,7 +3,7 @@
 {% block title %} Admin Panel {% endblock %}
 
 {% block body %}
-    <a href="{% url "main:index" %}">Back to all articles</a><br>
+    <br><a href="{% url "main:index" %}">Back to all articles</a><br>
     <h1>Articles Admin Panel</h1>
     <h3><a href="{% url "main:create_form" %}"> Create new article </a></h3>
     {% for article in articles %}

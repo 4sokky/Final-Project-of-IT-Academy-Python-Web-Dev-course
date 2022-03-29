@@ -1,11 +1,12 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from . import models
 from . import forms
 
 
-# Create your views here.
 def index(request):
     articles = models.Articles.objects.all()
     return render(request, 'main/index.html', {'articles': articles})
@@ -20,11 +21,13 @@ def detailed_article(request, yy, mm, dd, slug):
     return render(request, 'main/articles/detailed_article.html', {'article': article})
 
 
+@login_required
 def admin_panel(request):
     articles = models.Articles.objects.all()
     return render(request, 'main/admin/admin_panel.html', {'articles': articles})
 
 
+@login_required
 def create_article(request):
     if request.method == "POST":
         article_form = forms.ArticleForm(request.POST)

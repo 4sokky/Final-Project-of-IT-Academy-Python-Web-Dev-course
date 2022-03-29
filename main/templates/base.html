@@ -9,6 +9,12 @@
     <title>{% block title %} Title {% endblock %}</title>
 </head>
 <body>
+    {% if request.user.is_authenticated %}
+        Hello, {{ request.user.first_name }}
+        | <a href="{% url "main:logout" %}"> Logout </a><br>
+    {% else %}
+        <br><a href="{% url "main:login" %}"> Login </a><br>    <!-- TODO: Fix duplicating -->
+    {% endif %}
 {% block body %}
 
 {% endblock %}
