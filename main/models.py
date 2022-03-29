@@ -10,8 +10,8 @@ from django.urls import reverse
 
 # Create your models here.
 class Articles(models.Model):
-    title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique_for_date='publish_at')
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique_for_date='publish_at')
 
     body = models.TextField()
     image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: May be path should contain a slug
@@ -21,7 +21,7 @@ class Articles(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     publish_at = models.DateTimeField(default=timezone.now)
 
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_articles")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_articles')
     # updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_articles")   # TODO: Test it
 
     ARTICLE_SUBJECT = [
