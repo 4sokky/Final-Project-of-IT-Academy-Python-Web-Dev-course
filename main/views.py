@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from . import models
@@ -19,7 +19,17 @@ def detailed_article(request, yy, mm, dd, slug):
                                 publish_at__month=mm,
                                 publish_at__day=dd,
                                 slug=slug)
-    return render(request, 'main/articles/detailed_article.html', {'article': article})
+    if request.method == 'POST':
+        comments_form = forms.CommentsForm(request.POST)
+        if comments_form.is_valid():
+            new_comment = comments_form.save(commit=False)
+            new_comment.article = article
+            new_comment.save()
+            return redirect(article)
+    else:
+        comments_form = forms.CommentsForm()
+    return render(request, 'main/articles/detailed_article.html', {'article': article,
+                                                                   'form': comments_form})
 
 
 @login_required

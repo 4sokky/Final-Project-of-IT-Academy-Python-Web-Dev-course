@@ -40,3 +40,13 @@ class Articles(models.Model):
                              self.publish_at.month,
                              self.publish_at.day,
                              self.slug])
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(Articles, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=50)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.article.title, self.name)

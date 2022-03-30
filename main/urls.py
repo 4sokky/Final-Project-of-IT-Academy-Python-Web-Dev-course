@@ -15,7 +15,7 @@ class PWResetDoneHack(auth_views.PasswordResetView):
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<int:yy>_<int:mm>_<int:dd>/<slug:slug>', views.detailed_article, name="detailed_article"),
+    path('<int:yy>_<int:mm>_<int:dd>/<slug:slug>/', views.detailed_article, name="detailed_article"),
     path('admin_panel/', views.admin_panel, name='admin_panel'),
     path('admin_panel/create_article/', views.create_article, name='create_form'),
 

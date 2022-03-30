@@ -14,4 +14,23 @@
     <p>Last update at {{ article.updated_at }}</p>
     <!-- TODO: Display other user's articles at the bottom of current article -->
     <!-- TODO: Display other articles with the same subject at the right side -->
+    <br>
+    <h3>Comments</h3>
+    {% if request.user.is_authenticated %}
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Add comment">
+        </form>
+        <br><br>
+    {% else %}
+        You must be <a href="{% url "main:login" %}">logged in</a> to leave comments
+        <br><br>
+    {% endif %}
+    {% for comment in article.comments.all %}
+        <b>{{ comment.name }} | {{ comment.created_at }}</b> <br>
+        <p>{{ comment.body }}</p> <hr><br>
+    {% empty %}
+        <p>No comments yet. You can be the pervonah.</p>
+    {% endfor %}
 {% endblock %}
