@@ -5,6 +5,9 @@
 {% block body %}
     <br><a href="{% url "main:index" %}">Back to all articles</a><br>
     <h1>{{ article.title }}</h1>
+    {% if request.user.is_authenticated %}
+    <a href="{% url "main:edit_article" article.slug %}">Edit article</a> | <a href="{% url "main:admin_panel" %}">Admin Panel</a>
+    {% endif %}
     <p>{{ article.article_subject }}</p>
     <p>{{ article.body }}</p>
     {% if article.image %}

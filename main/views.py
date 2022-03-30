@@ -40,8 +40,8 @@ def admin_panel(request):
 
 @login_required
 def create_article(request):
-    if request.method == "POST":
-        article_form = forms.ArticleForm(request.POST)
+    if request.method == 'POST':
+        article_form = forms.ArticleCreateForm(request.POST)
         if article_form.is_valid():
             new_article = article_form.save(commit=False)
             new_article.author = User.objects.first()       # TODO: Must be current user
@@ -49,5 +49,26 @@ def create_article(request):
             new_article.save()
             return redirect(new_article)
     else:
-        article_form = forms.ArticleForm()
+        article_form = forms.ArticleCreateForm()
     return render(request, "main/admin/create_article.html", {"form": article_form})
+
+
+@login_required
+def edit_article(request, slug):
+    article = models.Articles.objects.get(slug=slug)
+    form = forms.ArticleEditForm(instance=article)
+    if request.method == 'POST':
+        form = forms.ArticleEditForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect(article)
+    return render(request, 'main/admin/edit_article.html', {'form': form})
+
+
+@login_required
+def delete_article(request, slug):
+    article = models.Articles.objects.get(slug=slug)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('/admin_panel/')
+    return render(request, 'main/admin/delete_article.html', {'article': article})

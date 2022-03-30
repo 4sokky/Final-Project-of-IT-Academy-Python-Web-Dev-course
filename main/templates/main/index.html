@@ -11,7 +11,7 @@
     {% for article in articles %}
         <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
         <p>
-            {{ article.body|truncatechars:100 }}<br>
+            {{ article.body|truncatechars:100 }}<br><br>
             {% if article.image %}
                 <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" height="200">
             {% endif %}

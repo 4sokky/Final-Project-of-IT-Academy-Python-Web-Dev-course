@@ -7,7 +7,6 @@
     <h1>Articles Admin Panel</h1>
     <h3><a href="{% url "main:create_form" %}"> Create new article </a></h3>
     {% for article in articles %}
-        <p><a href="{{ article.get_absolute_url }}">{{ article.title }}</a> - <a href="#">Edit</a> | <a href="#">Delete</a></p>
-        <!-- TODO: Make it possible to edite and delete -->
+        <p><a href="{{ article.get_absolute_url }}">{{ article.title }}</a> - <a href="{% url 'main:edit_article' article.slug %}">Edit</a> | <a href="{% url 'main:delete_article' article.slug %}">Delete</a></p>
     {% endfor %}
 {% endblock %}

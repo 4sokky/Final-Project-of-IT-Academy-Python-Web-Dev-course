@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Create Article
+{% endblock %}
+
+{% block body %}
+    <br><a href="{% url "main:admin_panel" %}">Back to admin panel</a><br>
+    <h2>Editing article</h2>
+    <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Submit changes">
+    </form>
+{% endblock %}

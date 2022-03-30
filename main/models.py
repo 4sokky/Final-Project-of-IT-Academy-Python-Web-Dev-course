@@ -29,7 +29,7 @@ class Articles(models.Model):
         ('auto', 'Article about auto'),
         ('realty', 'Realty article'),
     ]
-    article_subject = models.CharField(max_length=42, choices=ARTICLE_SUBJECT, default='politic')   # TODO: Test without default
+    article_subject = models.CharField(max_length=42, choices=ARTICLE_SUBJECT, default='politic')   # TODO: Try it without default
 
     def __str__(self):
         return self.title

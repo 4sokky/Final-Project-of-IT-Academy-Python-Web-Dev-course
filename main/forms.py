@@ -2,12 +2,19 @@ from django import forms
 from . import models
 
 
-class ArticleForm(forms.ModelForm):
+class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model = models.Articles
-        fields = ('title', 'body', 'article_subject', 'image', 'created_by')     # TODO: Don't need to choose user
+        fields = ('title', 'body', 'article_subject', 'image', 'created_by')
+        # TODO: Don't need to choose user
         # TODO: Fix img upload from form
-        # TODO: Limit characters for fields in html
+        # TODO: Limit characters for fields
+
+
+class ArticleEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Articles
+        fields = ('title', 'body', 'article_subject', 'image', 'created_by')
 
 
 class CommentsForm(forms.ModelForm):
