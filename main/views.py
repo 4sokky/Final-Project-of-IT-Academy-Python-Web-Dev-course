@@ -47,7 +47,7 @@ def create_article(request):
             new_article.author = User.objects.first()       # TODO: Must be current user
             new_article.slug = new_article.title.replace(" ", "-")
             new_article.save()
-            return render(request, "main/articles/detailed_article.html", {"article": new_article})
+            return redirect(new_article)
     else:
         article_form = forms.ArticleForm()
     return render(request, "main/admin/create_article.html", {"form": article_form})
