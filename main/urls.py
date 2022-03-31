@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin_panel/edit_article/<str:slug>/', views.edit_article, name='edit_article'),
     path('admin_panel/delete_article/<str:slug>/', views.delete_article, name='delete_article'),
 
+    path('registration/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
@@ -31,7 +32,7 @@ urlpatterns = [
         success_url=reverse_lazy('main:password_reset_complete')), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
-    path('profile/', views.profile_view, name='profile'),
+    path('profile/', views.profile_view, name='profile'),   # TODO: Must be url with slug or id
 ]
 
 if settings.DEBUG:

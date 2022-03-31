@@ -10,12 +10,14 @@
     {% if article.image %}
     <p>Avatar: <img src="{{ request.user.profile.photo.url }}" alt="Can't upload image"></p>
     {% else %}
-    You have no avatar, you can upload it <a href="#">here</a>      <!-- TODO: Edit profile link here -->
+    You have no avatar, you can upload it <a href="#">here</a>      <!-- TODO: Must be link to author's profile -->
     {% endif %}
     <p>Birthday: {{ request.user.profile.birthday }}</p>
-    <p><h3>Author's materials:</h3>
+    {% if user.user_articles %}         <!-- TODO: Fix this check, and same in detailed article -->
+    <p><h3>Author's Articles:</h3>      <!-- TODO: Must display author's articles, not logged user -->
         {% for article in request.user.user_articles.all %}
         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>, Published: {{ article.publish_at }}<br>
         {% endfor %}
     </p>
+    {% endif %}
 {% endblock %}

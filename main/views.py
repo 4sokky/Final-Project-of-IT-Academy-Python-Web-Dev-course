@@ -74,5 +74,22 @@ def delete_article(request, slug):
     return render(request, 'main/admin/delete_article.html', {'article': article})
 
 
+# @login_required
 def profile_view(request):
     return render(request, 'main/profile.html')
+
+
+def register(request):
+    if request.method == "POST":
+        user_form = forms.RegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data["password"])
+            new_user.save()
+            models.Profile.objects.create(user=new_user, avatar="nophoto.jpg")
+            return render(request, 'registration/registration_complete.html', {'new_user': new_user})
+        else:
+            return HttpResponse('Something went wrong..')
+    else:
+        user_form = forms.RegistrationForm(request.POST)
+        return render(request, 'registration/register_user.html', {'form': user_form})

@@ -9,11 +9,11 @@
     <title>{% block title %} Title {% endblock %}</title>
 </head>
 <body>
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated %}    <!-- TODO: Take out to header.html -->
         Hello, <a href="{% url 'main:profile' %}">{{ request.user.first_name }}</a>
-        | <a href="{% url "main:logout" %}"> Logout </a><br>
+        | <a href="{% url "main:logout" %}">Logout</a><br>
     {% else %}
-        <br><a href="{% url "main:login" %}"> Login </a><br>    <!-- TODO: Take out to header.html -->
+        <br><a href="{% url "main:login" %}">Login</a> or <a href="{% url "main:register" %}">Register</a><br>
     {% endif %}
 {% block body %}
 

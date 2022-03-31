@@ -1,5 +1,6 @@
 from django import forms
 from . import models
+from django.contrib.auth.models import User
 
 
 class ArticleCreateForm(forms.ModelForm):
@@ -21,3 +22,18 @@ class CommentsForm(forms.ModelForm):
     class Meta:
         model = models.Comment
         fields = ('name', 'body')
+
+
+class RegistrationForm(forms.ModelForm):
+    password = forms.CharField(label='Password:', widget=forms.PasswordInput)
+    password_repeat = forms.CharField(label='Repeat password:', widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+
+    def clean_password_repeat(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password_repeat']:
+            raise forms.ValidationError('Passwords are different!')
+        return cd['password_repeat']

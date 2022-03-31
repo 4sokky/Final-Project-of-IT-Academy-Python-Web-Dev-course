@@ -4,6 +4,7 @@
 
 {% block body %}
     <br><a href="{% url "main:index" %}">Back to all articles</a><br>
+
     <h1>{{ article.title }}</h1>
     {% if request.user.is_authenticated %}
     <a href="{% url "main:edit_article" article.slug %}">Edit article</a> | <a href="{% url "main:admin_panel" %}">Admin Panel</a>
@@ -13,10 +14,21 @@
     {% if article.image %}
                 <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" height="200">
     {% endif %}
-    <p>Published by {{ article.created_by }} at {{ article.created_at }}</p>
+
+    <p>Published by <a href="#">{{ article.created_by }}</a> at {{ article.created_at }}</p>
     <p>Last update at {{ article.updated_at }}</p>
-    <!-- TODO: Display other user's articles at the bottom of current article -->
+
+    {% if user.user_articles %}
+        <p>
+            <h3>Other Author's Articles:</h3>       <!-- TODO: Must display author's articles, not logged user -->
+            {% for article in request.user.user_articles.all %}
+            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>, Published: {{ article.publish_at }}<br>
+            {% endfor %}
+        </p>
+    {% endif %}
+
     <!-- TODO: Display other articles with the same subject at the right side -->
+
     <br>
     <h3>Comments</h3>
     {% if request.user.is_authenticated %}
