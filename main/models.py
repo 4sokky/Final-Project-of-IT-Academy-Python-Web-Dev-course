@@ -56,4 +56,4 @@ class Comment(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     birthday = models.DateField(null=True, blank=True)
-    avatar = models.ImageField(upload_to='user/%Y/%m/%d/', blank=True)
+    avatar = models.ImageField(upload_to='user/%Y/%m/%d/', blank=True)      # TODO: Path should contain user's name

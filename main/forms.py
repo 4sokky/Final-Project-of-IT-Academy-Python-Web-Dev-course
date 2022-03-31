@@ -37,3 +37,15 @@ class RegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password_repeat']:
             raise forms.ValidationError('Passwords are different!')
         return cd['password_repeat']
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ('birthday', 'avatar')

@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <br><a href="{% url "main:index" %}">Home page</a></br>
+    <br><a href="{% url "main:index" %}">Home page</a><br>
     <h2>Hello, {{ request.user.first_name }}</h2>
-    {% if article.image %}
-    <p>Avatar: <img src="{{ request.user.profile.photo.url }}" alt="Can't upload image"></p>
-    {% else %}
-    You have no avatar, you can upload it <a href="#">here</a>      <!-- TODO: Must be link to author's profile -->
-    {% endif %}
+    <a href="{% url "main:edit_profile" %}">Edit Profile</a><br>
+{% if user.profile.avatar %}
+    <p>Avatar: <img src="{{ MEDIA_URL }}{{ user.profile.avatar.url }}" alt="Can't upload image" height="100"></p>
+{% else %}
+    You have no avatar, you can upload it <a href="{% url "main:edit_profile" %}">here</a>
+{% endif %}
     <p>Birthday: {{ request.user.profile.birthday }}</p>
     {% if user.user_articles %}         <!-- TODO: Fix this check, and same in detailed article -->
     <p><h3>Author's Articles:</h3>      <!-- TODO: Must display author's articles, not logged user -->
