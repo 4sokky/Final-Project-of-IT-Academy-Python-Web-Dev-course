@@ -72,3 +72,7 @@ def delete_article(request, slug):
         article.delete()
         return redirect('/admin_panel/')
     return render(request, 'main/admin/delete_article.html', {'article': article})
+
+
+def profile_view(request):
+    return render(request, 'main/profile.html')

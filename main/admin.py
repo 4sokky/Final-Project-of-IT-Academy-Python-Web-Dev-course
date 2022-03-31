@@ -4,6 +4,7 @@ from . import models
 
 # admin.site.register(models.Articles)
 admin.site.register(models.Comment)
+admin.site.register(models.Profile)
 
 
 @admin.register(models.Articles)

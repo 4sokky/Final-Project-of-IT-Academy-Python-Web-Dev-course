@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 
@@ -13,7 +14,7 @@ class Articles(models.Model):
     slug = models.SlugField(max_length=255, unique_for_date='publish_at')
 
     body = models.TextField()
-    image = models.ImageField(upload_to='articles/imgs/', blank=True)    # TODO: May be path should contain a slug mb
+    image = models.ImageField(upload_to='articles/imgs/%Y/%m/%d/', blank=True)    # TODO: May be path should contain a slug mb
     # TODO: Image must be compressed by Pillow for example + unique name for imgs
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -50,3 +51,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.article.title, self.name)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    birthday = models.DateField(null=True, blank=True)
+    avatar = models.ImageField(upload_to='user/%Y/%m/%d/', blank=True)

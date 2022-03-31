@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block body %}
+    <br><a href="{% url "main:index" %}">Home page</a></br>
+    <h2>Hello, {{ request.user.first_name }}</h2>
+    {% if article.image %}
+    <p>Avatar: <img src="{{ request.user.profile.photo.url }}" alt="Can't upload image"></p>
+    {% else %}
+    You have no avatar, you can upload it <a href="#">here</a>      <!-- TODO: Edit profile link here -->
+    {% endif %}
+    <p>Birthday: {{ request.user.profile.birthday }}</p>
+    <p><h3>Author's materials:</h3>
+        {% for article in request.user.user_articles.all %}
+        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>, Published: {{ article.publish_at }}<br>
+        {% endfor %}
+    </p>
+{% endblock %}

@@ -10,10 +10,10 @@
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        Hello, {{ request.user.first_name }}
+        Hello, <a href="{% url 'main:profile' %}">{{ request.user.first_name }}</a>
         | <a href="{% url "main:logout" %}"> Logout </a><br>
     {% else %}
-        <br><a href="{% url "main:login" %}"> Login </a><br>    <!-- TODO: Fix duplicating -->
+        <br><a href="{% url "main:login" %}"> Login </a><br>    <!-- TODO: Take out to header.html -->
     {% endif %}
 {% block body %}
 
