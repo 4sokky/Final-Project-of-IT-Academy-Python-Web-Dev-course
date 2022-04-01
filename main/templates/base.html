@@ -1,3 +1,9 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -6,17 +12,32 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+
     <title>{% block title %} Title {% endblock %}</title>
+
+<script>
+        (function(d, s, id) {
+            if (d.getElementById(id)) {
+                if (window.__TOMORROW__) {
+                    window.__TOMORROW__.renderWidget();
+                }
+                return;
+            }
+            const fjs = d.getElementsByTagName(s)[0];
+            const js = d.createElement(s);
+            js.id = id;
+            js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, 'script', 'tomorrow-sdk');
+</script>
 </head>
 <body>
-    {% if request.user.is_authenticated %}    <!-- TODO: Take out to header.html -->
-        Hello, <a href="{% url 'main:profile' %}">{{ request.user.first_name }}</a>
-        | <a href="{% url "main:logout" %}">Logout</a><br>
-    {% else %}
-        <br><a href="{% url "main:login" %}">Login</a> or <a href="{% url "main:register" %}">Register</a><br>
-    {% endif %}
+{% include 'header.html' %}
 {% block body %}
 
 {% endblock %}
+{% include 'footer.html' %}
 </body>
 </html>

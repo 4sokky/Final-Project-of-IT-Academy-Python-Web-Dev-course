@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    <p>Are you sure u want to delete "{{ article.title }}"?</p><br>
+<div class="container">
+<br><br><br><br>
+    <h1>Are you sure you want to delete <br>"{{ article.title }}"?</h1><br>
     <form action="." method="POST">
-        <a href="{% url "main:admin_panel" %}">NO</a>
         {% csrf_token %}
-        <input type="submit" value="YES">
+        <input class="btn btn-primary ml-auto mr-3" type="submit" value="YES">
+        <a href="{% url "main:admin_panel" %}">NO</a>
     </form>
+</div>
 {% endblock %}

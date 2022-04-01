@@ -3,10 +3,14 @@
 {% block title %} Admin Panel {% endblock %}
 
 {% block body %}
-    <br><a href="{% url "main:index" %}">Back to all articles</a><br>
-    <h1>Articles Admin Panel</h1>
-    <h3><a href="{% url "main:create_form" %}"> Create new article </a></h3>
+<div class="container">
+    <br><br>
+    <button class="btn btn-primary ml-auto mr-2"><a href="{% url "main:index" %}">Back</a></button><br><br><br>
+
+    <h1>Admin Panel</h1><br>
+    <h4><a href="{% url "main:create_form" %}"> Create new article </a></h4><br>
     {% for article in articles %}
-        <p><a href="{{ article.get_absolute_url }}">{{ article.title }}</a> - <a href="{% url 'main:edit_article' article.slug %}">Edit</a> | <a href="{% url 'main:delete_article' article.slug %}">Delete</a></p>
+        <p><a href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:50 }}</a> — <a href="{% url 'main:edit_article' article.slug %}">Edit</a> | <a href="{% url 'main:delete_article' article.slug %}">Delete</a></p>
     {% endfor %}
+</div>
 {% endblock %}

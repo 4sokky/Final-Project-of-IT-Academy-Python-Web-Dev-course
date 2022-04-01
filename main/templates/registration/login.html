@@ -5,18 +5,23 @@
 {% endblock %}
 
 {% block body %}
-    <h2>User Login</h2>
+    <div class="container">
+    <br><br><br><br>
+        <h1>Login</h1>
+    <br>
     {% if form.errors %}
         <p>
             Something went wrong
         </p>
     {% endif %}
+    <br>
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit" value="Login">
-        <input type="hidden" name="next" value="{{ next }}">
+        <input class="btn btn-primary ml-auto mr-2" type="submit" value="Login">
+        <input class="btn btn-primary ml-auto mr-2" type="hidden" name="next" value="{{ next }}">
     </form>
     <br><br>
     <a href="{% url "main:password_reset" %}"> Forgot your password? </a>
+    </div>
 {% endblock %}

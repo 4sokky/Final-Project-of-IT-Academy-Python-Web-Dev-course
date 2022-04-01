@@ -3,26 +3,30 @@
 {% block title %} {{ article.title }} {% endblock %}
 
 {% block body %}
-    <br><a href="{% url "main:index" %}">Back to all articles</a><br>
-
+<div class="container">
+<br><br>
+    <button class="btn btn-primary ml-auto mr-2"><a href="{% url "main:index" %}">Back</a></button><br><br><br>
     <h1>{{ article.title }}</h1>
     {% if request.user.is_authenticated %}
-    <a href="{% url "main:edit_article" article.slug %}">Edit article</a> | <a href="{% url "main:admin_panel" %}">Admin Panel</a>
+    <a href="{% url "main:edit_article" article.slug %}">Edit article</a><br><br>
     {% endif %}
-    <p>{{ article.article_subject }}</p>
-    <p>{{ article.body }}</p>
+    <p class="btn btn-info ml-auto mr-2">{{ article.article_subject }}</p><br><br>
     {% if article.image %}
-                <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" height="200">
+    <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" width="1000"><br><br><br>
     {% endif %}
+    <h5>{{ article.body }}</h5><br><br>
 
     <p>Published by <a href="#">{{ article.created_by }}</a> at {{ article.created_at }}</p>
-    <p>Last update at {{ article.updated_at }}</p>
+    <p>Last update at {{ article.updated_at }}</p><br>
 
     {% if user.user_articles %}
         <p>
-            <h3>Other Author's Articles:</h3>       <!-- TODO: Must display author's articles, not logged user -->
+            <h2>Other {{ request.user.first_name }}'s Articles:</h2>       <!-- TODO: Must display author's articles, not logged user -->
             {% for article in request.user.user_articles.all %}
-            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>, Published: {{ article.publish_at }}<br>
+            {% if article.image %}
+            <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" width="450"><br>
+            {% endif %}
+            <a href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:50 }}</a><br>{{ article.publish_at }}<br><br>
             {% endfor %}
         </p>
     {% endif %}
@@ -30,22 +34,25 @@
     <!-- TODO: Display other articles with the same subject at the right side -->
 
     <br>
-    <h3>Comments</h3>
+    <h2>Comments</h2>
     {% if request.user.is_authenticated %}
         <form action="." method="post">
             {{ form.as_p }}
             {% csrf_token %}
-            <input type="submit" value="Add comment">
+            <input class="btn btn-primary ml-auto mr-2" type="submit" value="Add comment">
         </form>
         <br><br>
     {% else %}
-        You must be <a href="{% url "main:login" %}">logged in</a> to leave comments
+        You must be  <a class="btn btn-primary ml-auto" href="{% url "main:login" %}">logged in</a> to leave comments
         <br><br>
     {% endif %}
     {% for comment in article.comments.all %}
+        <div>
         <b>{{ comment.name }} | {{ comment.created_at }}</b> <br>
         <p>{{ comment.body }}</p> <hr><br>
+        </div>
     {% empty %}
-        <p>No comments yet. You can be the pervonah.</p>
+        <p>No comments yet. You can be the pervonah.</p> <br><br><br>
     {% endfor %}
+</div>
 {% endblock %}

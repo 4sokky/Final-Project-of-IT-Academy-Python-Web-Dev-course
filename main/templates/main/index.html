@@ -3,20 +3,47 @@
 {% block title %} News {% endblock %}
 
 {% block body %}
-    {% if request.user.is_authenticated %}
-        <br><a href="{% url "main:admin_panel" %}"> Admin Panel </a><br>    <!-- TODO: Check access rights -->
-        <a href="/admin"> Django Admin </a><br>
-    {% endif %}
-    <h1>News</h1>
+<div class="container">
+<br><br>
+    <h1>NEWS</h1><br>
+<div class="row align-items-center">
+<div class="col">
     {% for article in articles %}
         {% if article.image %}
-                <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" height="200">
+                <img src="{{ MEDIA_URL }}{{ article.image.url }}" alt="Can't upload image" width="900" >
         {% endif %}
-        <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+        <h2><a href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:50 }}</a></h2>
         <p>
-            {{ article.body|truncatechars:50|truncatewords:50 }}<br><br>
+            {{ article.body|truncatechars:100 }}<br><br>
         </p>
         <hr>
     {% endfor %}
-    <!-- TODO: Make contact page with email possibility -->
+</div>
+</div>
+<div class="col">       <!-- TODO: Display widgets at the right side -->
+        <div class="tomorrow"
+           data-location-id="015989"
+           data-language="EN"
+           data-unit-system="METRIC"
+           data-skin="light"
+           data-widget-type="upcoming"
+           style="padding-bottom:22px;position:relative;"
+        >
+          <a
+            href="https://www.tomorrow.io/weather/"
+            rel="nofollow noopener noreferrer"
+            target="_blank"
+            style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"
+          >
+            <img
+              alt="Powered by Tomorrow.io"
+              src="https://weather-website-client.tomorrow.io/img/powered-by-tomorrow.svg"
+              width="140"
+              height="15"
+            />
+          </a>
+        </div>
+</div>
+</div>
+    <br><br><br>
 {% endblock %}

@@ -1,0 +1,23 @@
+body {
+    color: #fafafa;
+    background: black;
+    font-family: "SF UI Text", "Segoe UI", sans-serif;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: #d6d6d6;
+    transition: 200ms;
+    text-decoration: inherit;
+}
+
+button > a:hover {
+    color: white;
+}
+
+button {
+    background: purple;
+}
